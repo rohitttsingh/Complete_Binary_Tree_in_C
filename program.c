@@ -57,6 +57,30 @@ void LOT(Node *head){
 
     }
 }
+int isHeightBalanced(Node* root, bool &isBalanced)
+{
+    if (root == nullptr || !isBalanced) {
+        return 0;
+    }
+ 
+    int left_height = isHeightBalanced(root->left, isBalanced);
+ 
+    int right_height = isHeightBalanced(root->right, isBalanced);
+ 
+
+    if (abs(left_height - right_height) > 1) {
+        isBalanced = false;
+    }
+     return max(left_height, right_height) + 1;
+}
+
+bool isHeightBalanced(Node* root)
+{
+    bool isBalanced = true;
+    isHeightBalanced(root, isBalanced);
+ 
+    return isBalanced;
+}
 
 int main() {
     Node *head=NULL;
@@ -73,6 +97,11 @@ int main() {
     
     cout<<endl;
     LOT(head);
-
+if (isHeightBalanced(root)) {
+        cout << "\nBinary tree is balanced";
+    }
+    else {
+        cout << "\nBinary tree is not balanced";
+    }
     return 0;
 }
